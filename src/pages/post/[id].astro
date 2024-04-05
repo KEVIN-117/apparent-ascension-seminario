@@ -1,0 +1,93 @@
+astroCopy code
+---
+export function getStaticPaths() {
+    // get all post ids
+    const {id } = Astro.params;
+    return [
+        {params: {id: id}},
+    ];
+}
+const { id } = Astro.params;
+const postRes = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+const post = await postRes.json();
+const commentsRes = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`);
+const comments = await commentsRes.json();
+---
+
+<html>
+<head>
+    <title>{post.title}</title>
+</head>
+<body>
+<article>
+    <h1 class="title">{post.title}</h1>
+    <p>{post.body}</p>
+    <section>
+        <div class="container">
+            <article class="post">
+                <h1 class="title">{post.title}</h1>
+                <p>{post.body}</p>
+                <a href="/">Volver al inicio</a>
+            </article>
+        </div>
+        <div>
+            <h2 class="title">Comentarios</h2>
+            {comments.map(comment => (
+                    <div key={comment.id}>
+                        <p><strong>{comment.name}:</strong> {comment.body}</p>
+                    </div>
+            ))}
+        </div>
+    </section>
+</article>
+</body>
+</html>
+
+<style >
+    :root {
+        --primary-color: #007bff;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color-scheme: light dark;
+        font-size: 16px;
+
+    }
+    article{
+        margin: 0 auto;
+        max-width: 800px;
+        padding: 20px;
+    }
+    h1 {
+        color: #333;
+        text-transform: uppercase;
+    }
+    .title {
+        color: var(--primary-color);
+        text-align: center;
+        font-size: 1.8rem;
+    }
+    .post {
+        //background-image: linear-gradient(120deg, rgba(0, 163, 255, 0.8) 0%, rgba(0, 34, 255, 0.73) 100%);
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 2px solid #0080ff;
+    }
+    a{
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #fff;
+        text-decoration: none;
+        border: 2px solid #0080ff;;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    a:hover{
+        background-color: #0080ff;
+    }
+</style>
+
+
+
+

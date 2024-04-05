@@ -1,0 +1,53 @@
+---
+const { post } = Astro.props;
+---
+
+<div class="container" xmlns="http://www.w3.org/1999/xhtml">
+    <div class="body">
+        <h2>{post.title}</h2>
+        <p>{post.body}</p>
+    </div>
+    <a href={`/post/${post.id}`}>Leer comentarios</a>
+</div>
+
+
+<style>
+    .container{
+        display: flex;
+        flex-direction: column;
+        height: calc(60vh - 100px);
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+    }
+    .container .body{
+        flex: 1;
+        overflow: auto;
+    }
+    .container .body h2{
+        text-transform: uppercase;
+        text-align: center;
+        text-shadow:  0 0 10px rgb(0, 128, 255), 0 0 20px rgb(0, 128, 255), 0 0 40px rgb(0, 128, 255), 0 0 30px rgb(0, 128, 255);
+    }
+
+    .container .body p{
+        text-align: center;
+    }
+    a{
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #fff;
+        text-decoration: none;
+        border: 2px solid #0080ff;;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    a:hover{
+        background: #0080ff;
+    }
+</style>
